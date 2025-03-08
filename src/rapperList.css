@@ -1,0 +1,192 @@
+/* Corpo della pagina con sfondo scuro e testo chiaro */
+body {
+    background-color: #1a1a1a;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+  }
+  
+  /* Contenitore principale */
+  .container {
+    width: 90%;
+    max-width: 800px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  /* Stile per il titolo principale */
+  .title {
+    font-family: 'Impact', sans-serif;
+    font-size: 3rem;
+    text-transform: uppercase;
+    color: #ffcc00;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    margin-bottom: 20px;
+  }
+  
+  /* Tabella per i rapper */
+  .rapper-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.8);
+    color: #ffcc00;
+  }
+  
+  .rapper-table th, .rapper-table td {
+    padding: 15px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .rapper-table th {
+    background-color: #111;
+    text-transform: uppercase;
+  }
+  
+  .rapper-table tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+  
+  .rapper-table tr:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  /* Messaggio se non ci sono rapper */
+  .no-rapper {
+    font-style: italic;
+    color: #ff6666;
+    font-size: 1.2rem;
+    padding: 20px;
+  }
+  
+  /* Stile generale dei bottoni */
+  .btn {
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    border: none;
+    transition: 0.3s;
+    margin-right: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  
+  /* Stili specifici per i bottoni */
+  .btn-update {
+    background-color: #ffcc00;
+    color: #111;
+  }
+  
+  .btn-update:hover {
+    background-color: #ff9900;
+    color: #fff;
+    transform: scale(1.05);
+    box-shadow: 0px 0px 10px rgba(255, 153, 0, 0.8);
+  }
+  
+  .btn-delete {
+    background-color: #ff4444;
+    color: white;
+  }
+  
+  .btn-delete:hover {
+    background-color: #cc0000;
+  }
+  
+  .btn-add {
+    background-color: #009933;
+    color: white;
+  }
+  
+  .btn-add:hover {
+    background-color: #006622;
+  }
+  
+  .btn-save {
+    background-color: #0077ff;
+    color: white;
+  }
+  
+  .btn-save:hover {
+    background-color: #0055cc;
+  }
+  
+  .btn-close {
+    background-color: #555;
+    color: white;
+  }
+  
+  .btn-close:hover {
+    background-color: #333;
+  }
+  
+  /* Modale per aggiornare il rapper */
+  .modal-rap {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #333;
+    color: #ffcc00;
+    padding: 30px;
+    border-radius: 10px;
+    border: 3px solid #ffcc00;
+    box-shadow: 0 0 15px rgba(255, 204, 0, 0.9);
+    z-index: 999;
+  }
+  
+  .modal-rap h3 {
+    font-family: 'Impact', sans-serif;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  
+  /* Input */
+  .input-field {
+    background-color: #444;
+    color: #ffcc00;
+    border: 2px solid #ffcc00;
+    border-radius: 5px;
+    padding: 12px;
+    margin-bottom: 15px;
+    width: 80%;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  
+  /* Messaggio di errore */
+  .error-message {
+    color: red;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  /* Animazione di apparizione della modale */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  .modal-rap {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  

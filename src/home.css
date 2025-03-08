@@ -1,0 +1,93 @@
+/* Sfondo con immagine e overlay scuro */
+.body-rap {
+    background: url("https://images.unsplash.com/photo-1526150001412-30c77c2f35dd") no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+  }
+  
+  /* Overlay scuro per migliorare la leggibilità */
+  .body-rap::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Oscurisce lo sfondo per un effetto più "rap" */
+    z-index: 0;
+  }
+  
+  /* Header gigante con stile street */
+  .header-rap {
+    font-family: 'Impact', sans-serif;
+    font-size: 6rem; /* Più grande del doppio! */
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #ffcc00;
+    text-shadow: 5px 5px 15px rgba(0, 0, 0, 1);
+    margin-top: 40px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Card per la selezione dei muretti */
+  .card-rap {
+    background: rgba(17, 17, 17, 0.95); /* Nero quasi pieno */
+    color: white;
+    border: 3px solid #ffcc00; /* Bordo oro */
+    box-shadow: 0 0 20px rgba(255, 204, 0, 0.8); /* Glow giallo intenso */
+    padding: 30px;
+    border-radius: 15px;
+    width: 45%;
+    min-width: 350px;
+    text-align: center;
+    position: relative;
+    top: 120px; /* Abbassa la card */
+    z-index: 1;
+  }
+  
+  /* Select stilizzato */
+  .select-rap {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    background-color: #222;
+    color: #ffcc00;
+    text-align: center;
+    font-size: 1.1rem;
+  }
+  
+  .select-rap option {
+    background: #000;
+    color: white;
+  }
+  
+  /* Bottone con effetto rap */
+  .btn-rap {
+    background: #ffcc00;
+    color: #111;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 8px;
+    padding: 14px 25px;
+    font-size: 1.2rem;
+    border: none;
+    transition: 0.3s;
+  }
+  
+  .btn-rap:hover {
+    background: #ff9900;
+    color: #fff;
+    transform: scale(1.1);
+    box-shadow: 0px 0px 10px rgba(255, 153, 0, 0.8);
+  }
+  
+  

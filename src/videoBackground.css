@@ -1,0 +1,31 @@
+.video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: -1;
+  }
+  
+  .video-iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 56.25vw; /* Per mantenere il rapporto 16:9 */
+    min-height: 100vh;
+    min-width: 177.78vh; /* Adatta al rapporto 16:9 */
+    transform: translate(-50%, -50%);
+    pointer-events: none; /* Impedisce interazioni con il video */
+  }
+  
+  .video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* Effetto scuro per migliorare leggibilità */
+  }
+  
