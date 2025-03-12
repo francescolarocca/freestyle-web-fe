@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { getAllItems } from "../api";
-import TournamentTabellone from "./TournamentTabellone";
+import { Bracket, Seed, SeedItem, SeedTeam } from "react-brackets";
+import "../modalita.css";
 
 const Modalita = ({ rounds, selectWinner }) => {
   const { murettoName } = useParams();
@@ -28,12 +29,16 @@ const Modalita = ({ rounds, selectWinner }) => {
   }, [murettoName]);
 
   const toggleRapperSelection = (rapperName) => {
-    setSelectedRappers(prevSelected =>
-      prevSelected.includes(rapperName)
-        ? prevSelected.filter(name => name !== rapperName)
-        : [...prevSelected, rapperName]
-    );
-  };
+    setSelectedRappers(prevSelected => {
+        const newSelection = prevSelected.includes(rapperName)
+            ? prevSelected.filter(name => name !== rapperName)
+            : [...prevSelected, rapperName];
+
+        console.log("Rapper selezionati:", newSelection); // Debug
+        return newSelection;
+    });
+};
+
 
   const generateMatchup = () => {
     if (selectedRappers.length < 2) {
@@ -59,55 +64,51 @@ const Modalita = ({ rounds, selectWinner }) => {
   
     let shuffledRappers = [...selectedRappers].sort(() => Math.random() - 0.5);
     let rounds = [];
-    let currentRound = shuffledRappers.map(name => ({ team: name, winner: null }));
-
-// Gestisci i numeri dispari
-while (currentRound.length > 1) {
-  let nextRound = [];
-  for (let i = 0; i < currentRound.length; i += 2) {
-    // Se c'è un team dispari, aggiungi un "BYE" (bye round)
-    if (currentRound[i + 1]) {
-      nextRound.push({ team1: currentRound[i], team2: currentRound[i + 1], winner: null });
-    } else {
-      nextRound.push({ team1: currentRound[i], team2: { team: "BYE" }, winner: currentRound[i].team });
+    let currentRound = shuffledRappers.map(name => ({ name }));
+  
+    let roundIndex = 1;
+  
+    while (currentRound.length > 1) {
+      let nextRound = [];
+      let seeds = [];
+  
+      for (let i = 0; i < currentRound.length; i += 2) {
+        if (currentRound[i + 1]) {
+          seeds.push({
+            id: i / 2 + 1,
+            teams: [currentRound[i], currentRound[i + 1]],
+          });
+          nextRound.push({ name: null }); // Placeholder per il vincitore
+        } else {
+          nextRound.push(currentRound[i]); // Passaggio automatico
+        }
+      }
+  
+      rounds.push({ title: `Round ${roundIndex}`, seeds });
+      currentRound = nextRound;
+      roundIndex++;
     }
-  }
-  rounds.push(currentRound);  // Aggiungi il round attuale
-  currentRound = nextRound;  // Passa al prossimo round
-}
-
-rounds.push(currentRound);  // Aggiungi l'ultimo round
-
+  
     setTournamentRounds(rounds);
     setShowTournament(true);
   };
 
-  const handleWinnerSelection = (roundIndex, matchIndex, winner) => {
+
+  const handleWinnerSelection = (roundIndex, seedIndex, winner) => {
     const newRounds = [...tournamentRounds];
-    const match = newRounds[roundIndex][matchIndex];
   
-    // Se il team 1 o team 2 è "BYE", il vincitore è già determinato
-    if (match.team1.team === "BYE") {
-      winner = match.team2.team;
-    } else if (match.team2.team === "BYE") {
-      winner = match.team1.team;
-    }
+    // Imposta il vincitore nel round attuale
+    newRounds[roundIndex].seeds[seedIndex].winner = winner;
   
-    // Assegna il vincitore
-    newRounds[roundIndex][matchIndex].winner = winner;
-  
-    // Passa il vincitore al round successivo
+    // Passa il vincitore al round successivo (se esiste)
     if (roundIndex < newRounds.length - 1) {
-      const nextMatchIndex = Math.floor(matchIndex / 2);
-      newRounds[roundIndex + 1][nextMatchIndex] = {
-        team1: newRounds[roundIndex][matchIndex].winner,
-        team2: newRounds[roundIndex + 1][nextMatchIndex]?.team2 || null,
-        winner: null
-      };
+      const nextMatchIndex = Math.floor(seedIndex / 2);
+      newRounds[roundIndex + 1].seeds[nextMatchIndex].teams[seedIndex % 2] = { name: winner };
     }
   
     setTournamentRounds(newRounds);
   };
+
   
   return (
     <div>
@@ -173,12 +174,32 @@ rounds.push(currentRound);  // Aggiungi l'ultimo round
         </button>
       )}
 
-      {showTournament && (
-        <div>
-          <h2>Tabellone Torneo</h2>
-          <TournamentTabellone rounds={tournamentRounds} selectWinner={handleWinnerSelection} />
-        </div>
+{showTournament && (
+  <div className="bracket-container">
+    <h2>Tabellone Torneo</h2>
+    <Bracket
+      rounds={tournamentRounds}
+      renderSeedComponent={({ seed, roundIndex, seedIndex }) => (
+        <Seed className="seed">
+          <SeedItem className="seed-item">
+            <div>
+              {seed.teams.map((team, teamIndex) => (
+                <SeedTeam
+                  key={teamIndex}
+                  className="seed-team"
+                  onClick={() => handleWinnerSelection(roundIndex, seedIndex, team.name)}
+                >
+                  {team.name || "Attesa..."}
+                </SeedTeam>
+              ))}
+            </div>
+          </SeedItem>
+        </Seed>
       )}
+    />
+  </div>
+)}
+
     </div>
   );
 };

@@ -7,10 +7,7 @@ const MurettoOptions = () => {
 
   return (
     <>
-    {/* Video di background */}
-    <video className="video-bg" autoPlay loop muted>
-      <source src="https://drive.google.com/uc?export=download&id=1sYrIb3fOqiJSHWzxPc15hC_Byn3ZV628" type="video/mp4" />
-    </video>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 
     {/* Overlay scuro per leggibilità */}
     <div className="overlay"></div>
@@ -33,7 +30,7 @@ const MurettoOptions = () => {
           RAPPER
         </Link>
 
-        {/* Card per la lista dei rapper */}
+        {/* Card per la lista modalità */}
         <Link to={`/muretto/${murettoId}/modalita`} className="option-card">
           MODALITA
         </Link>

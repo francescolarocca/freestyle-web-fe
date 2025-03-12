@@ -33,11 +33,13 @@ const Home = () => {
   };
 
   return (
-    <div className="body-rap">
-    <h1 className="header-rap">Muretti Italia</h1>
-    <div className="card-rap">
+    <>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <div className="body-rapho">
+    <h1 className="header-rapho">Muretti Italia</h1>
+    <div className="card-rapho">
       <h2>Seleziona un Muretto</h2>
-      <select className="select-rap mt-3" value={selectedMuretto} onChange={(e) => setSelectedMuretto(e.target.value)}>
+      <select className="select-rapho mt-3 " value={selectedMuretto} onChange={(e) => setSelectedMuretto(e.target.value)}>
         <option value="">-- Scegli un muretto --</option>
         {muretti.map((muretto) => (
           <option key={muretto.id} value={muretto.alias}>
@@ -45,10 +47,12 @@ const Home = () => {
           </option>
         ))}
       </select>
-      <button className="btn btn-rap mt-4" onClick={handleNext}>Avanti</button>
+      <button className="btnho btn-rapho mt-4 " onClick={handleNext}>Avanti</button>
     </div>
   </div>
+  </>
 );
+
 };
 
 export default Home;
