@@ -1,41 +1,54 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-const AddRankingModal = ({ showModal, closeModal, handleFormSubmit, rapper }) => {
+const AddPresenzaRankingModal = ({ closeModal, onPresenzaAdded, rapper }) => {
   // Stato per il form
   const [formData, setFormData] = useState({
     rapper: "",
     evento: "presenza", // Valore predefinito
-    data: "",
+    data: new Date().toISOString().split("T")[0],
     moltiplicatore: "casa", // Valore predefinito
     posizionamento: "",
   });
 
   // Funzione per ottenere la data di oggi in formato YYYY-MM-DD
-  const getTodayDate = () => {
-    const today = new Date();
-    return today.toISOString().split("T")[0]; // Prende solo la parte della data
-  };
 
-  // Imposta la data predefinita quando il modal viene aperto
-  useEffect(() => {
-    if (showModal) {
-      setFormData((prevData) => ({
-        ...prevData,
-        data: getTodayDate(), // Imposta la data attuale
-      }));
+  const addPresenza = async (e) => {
+    e.preventDefault();
+    const jsonData = {
+      data: new Date(formData.data).toISOString(),
+      evento: formData.evento,
+      posizionamento: formData.posizionamento,
+      moltiplicatore: formData.moltiplicatore,
+    };
+    const API_BASE_URL = 'http://localhost:8080/murettifreestyle';
+    try {
+      // Invia il JSON al server tramite POST
+      const response = await fetch(`${API_BASE_URL}/addPresenza/Muretto/Messina/${formData.rapper}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // Indica che inviamo JSON
+        },
+        body: JSON.stringify(jsonData), // Converte l'oggetto JavaScript in una stringa JSON
+      });
+
+      if (response.ok) {
+        closeModal(); // Chiudi il modale
+        onPresenzaAdded();
+      } else {
+        throw new Error("Errore nella creazione dell'appello");
+      }
+    } catch (error) {
+      console.error('Errore:', error);
+      alert('Si è verificato un errore.');
     }
-  }, [showModal]);
-
-  if (!showModal) return null;
+  };
 
   return (
     <div className="modal-content">
       <div className="modal-form">
         <button className="close-modal" onClick={closeModal}>X</button>
         <h2>Aggiungi al Ranking</h2>
-        <form onSubmit={(e) => handleFormSubmit(e, formData)}> {/* Passiamo formData alla funzione */}
-          
-          {/* Selezione Rapper */}
+        <form onSubmit={(e) => addPresenza(e)}>
           <select
             value={formData.rapper}
             onChange={(e) => setFormData({ ...formData, rapper: e.target.value })}
@@ -97,4 +110,4 @@ const AddRankingModal = ({ showModal, closeModal, handleFormSubmit, rapper }) =>
   );
 };
 
-export default AddRankingModal;
+export default AddPresenzaRankingModal;
