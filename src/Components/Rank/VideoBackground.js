@@ -1,5 +1,5 @@
 import React from "react";
-import "../videoBackground.css"; // Per gli stili
+import "../../../src/videoBackground.css"; // Per gli stili
 
 const VideoBackground = () => {
     return (

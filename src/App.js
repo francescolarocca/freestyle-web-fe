@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { getAllItems } from './api';
-import RapperTable from './Components/RapperTable';
-import MurettoTable from './Components/MurettoTable';
-import CreateItemForm from './Components/CreateItemForm';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './Components/Home';
 import MurettoOptions from './Components/MurettoOptions';
-import RapperList from "./Components/RapperList";
-import Ranking from './Components/Ranking';  // La pagina per il ranking
-import Modalita from './Components/Modalita';
+import RapperList from "./Components/ListaRapper/RapperList";
+import Ranking from './Components/Rank/Ranking';  // La pagina per il ranking
+import Modalita from './Components/Modalita/Modalita';
 
 
 
