@@ -1,5 +1,4 @@
 import React from "react";
-import YouTube from "react-youtube";
 import "../videoBackground.css"; // Per gli stili
 
 const VideoBackground = () => {

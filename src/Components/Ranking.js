@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getAllItems } from "../api"; // Funzione API per aggiungere la presenza
 import "../ranking.css"; // Il CSS comune per tutto
 import VideoBackground from "./VideoBackground";
+import "../rapperList.css";
 
 const Ranking = () => {
   const { murettoName } = useParams();
@@ -101,21 +102,21 @@ const Ranking = () => {
   return (
 
     
-    <div>
+    <div  className="container">
 
       <VideoBackground /> {/* Cambia con l'ID del video YouTube */}
 
       <h2 className="title2">Ranking {murettoName}</h2>
       
       
-      <button className="btn-add" onClick={openModal}>Aggiungi Presenza</button>
+      <button className="btn-add" onClick={openModal}>Aggiungi al Ranking</button>
 
       
       {showModal && (
         <div className="modal-content">
           <div className="modal-form">
             <button className="close-modal" onClick={closeModal}>X</button>
-            <h2>Aggiungi Presenza</h2>
+            <h2>Aggiungi al Ranking</h2>
             <form onSubmit={handleFormSubmit}>
               <select
                 value={formData.rapper}
@@ -168,7 +169,7 @@ const Ranking = () => {
       )}
 
       {/* Tabella dei rapper */}
-      <table>
+      <table className="rapper-table">
         <thead>
           <tr>
             <th>Posizione</th>

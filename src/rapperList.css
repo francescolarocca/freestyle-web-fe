@@ -23,7 +23,7 @@ body {
   /* Stile per il titolo principale */
   .title {
     font-family: 'Impact', sans-serif;
-    font-size: 3rem;
+    font-size: 6rem;
     text-transform: uppercase;
     color: #ffcc00;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
@@ -189,4 +189,5 @@ body {
   .modal-rap {
     animation: fadeIn 0.5s ease-in-out;
   }
+  
   

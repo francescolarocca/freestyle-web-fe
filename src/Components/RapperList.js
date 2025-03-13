@@ -125,7 +125,7 @@ const RapperList = () => {
 
   return (
     <div className="container">
-  <h2 className="title">Lista dei rapper nel muretto {murettoId}</h2>
+  <h2 className="title">Lista dei rapper {murettoId}</h2>
 
   {/* Lista dei rapper */}
   <table className="rapper-table">
