@@ -80,9 +80,24 @@ const Modalita = () => {
       rounds.push({ title: `Round ${rounds.length + 1}`, seeds });
       currentRound = nextRound;
     }
+    
 
     setTournamentRounds(rounds);
     setShowTournament(true);
+  };
+  const handleWinnerSelection = (roundIndex, seedIndex, winner) => {
+    const newRounds = [...tournamentRounds];
+  
+    // Imposta il vincitore nel round attuale
+    newRounds[roundIndex].seeds[seedIndex].winner = winner;
+  
+    // Passa il vincitore al round successivo (se esiste)
+    if (roundIndex < newRounds.length - 1) {
+      const nextMatchIndex = Math.floor(seedIndex / 2);
+      newRounds[roundIndex + 1].seeds[nextMatchIndex].teams[seedIndex % 2] = { name: winner };
+    }
+  
+    setTournamentRounds(newRounds);
   };
 
   return (
@@ -90,7 +105,12 @@ const Modalita = () => {
       <ModeSelector selectedMode={selectedMode} setSelectedMode={setSelectedMode} />
       {!showTournament && <RapperSelection rapper={rapper} selectedRappers={selectedRappers} toggleRapperSelection={toggleRapperSelection} />}
       <MatchupGenerator selectedMode={selectedMode} selectedRappers={selectedRappers} matchup={matchup} generateMatchup={generateMatchup} />
-      {showTournament && <TournamentBracket tournamentRounds={tournamentRounds} />}
+      {selectedMode.includes("torneo") && !showTournament && (
+        <button onClick={startTournament} disabled={selectedRappers.length < 8 || selectedRappers.length > 32}>
+          Inizia Torneo
+        </button>
+      )}
+      {showTournament && <TournamentBracket tournamentRounds={tournamentRounds} handleWinnerSelection={handleWinnerSelection} />}
     </div>
   );
 };
