@@ -10,7 +10,6 @@ const AddPresenzaRankingModal = ({ closeModal, onPresenzaAdded, rapper }) => {
     posizionamento: "",
   });
 
-  // Funzione per ottenere la data di oggi in formato YYYY-MM-DD
 
   const addPresenza = async (e) => {
     e.preventDefault();

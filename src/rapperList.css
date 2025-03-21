@@ -189,5 +189,11 @@ body {
   .modal-rap {
     animation: fadeIn 0.5s ease-in-out;
   }
+
+  .clickable {
+    cursor: pointer;
+    color: #f94b2def;
+    text-decoration: underline;
+  }
   
   

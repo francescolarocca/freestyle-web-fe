@@ -1,6 +1,15 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+
+
 
 const RapperTable = ({ rapper, openModal, handleDeleteRapper }) => {
+  const { murettoId } = useParams();
+
+  const navigate = useNavigate();
+
+  
   return (
     <table className="rapper-table">
       <thead>
@@ -14,7 +23,8 @@ const RapperTable = ({ rapper, openModal, handleDeleteRapper }) => {
         {rapper.length > 0 ? (
           rapper.map((rapperItem) => (
             <tr key={rapperItem.nome}>
-              <td>{rapperItem.nome}</td>
+              <td className="clickable" 
+               onClick={() => navigate(`/muretto/${murettoId}/rapper/${rapperItem.nome}`)} >  {rapperItem.nome} </td>
               <td>{rapperItem.rank}</td>
               <td>
                 <button className="btn btn-update" onClick={() => openModal(rapperItem)}>

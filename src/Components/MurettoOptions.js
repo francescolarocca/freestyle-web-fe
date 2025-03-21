@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import "../murettoOptions.css";
+import { motion } from "motion/react"
 
 const MurettoOptions = () => {
   const { murettoId } = useParams(); // Otteniamo il parametro dalla URL
@@ -18,7 +19,7 @@ const MurettoOptions = () => {
     </div>
 
     {/* Contenuto principale con le card */}
-    <div className="options-container">
+    <motion.div  className="options-container">
       <div className="options-grid">
         {/* Card per il ranking */}
         <Link to={`/muretto/${murettoId}/ranking`} className="option-card">
@@ -35,7 +36,7 @@ const MurettoOptions = () => {
           MODALITA
         </Link>
       </div>
-    </div>
+    </motion.div>
   </>
   );
 };
