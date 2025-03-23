@@ -12,7 +12,7 @@ const UpdateRapperModal = ({ isModalOpen, closeModal, updatedName, setUpdatedNam
           type="text" 
           className="input-field"
           value={updatedName} 
-          onChange={(e) => setUpdatedName(e.target.value)} 
+          onChange={(e) => setUpdatedName(e.target.value.trim())}
           placeholder="Nuovo nome" 
         />
       </label>

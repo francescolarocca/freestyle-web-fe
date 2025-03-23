@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from './Components/Home';
+import Home from './Components/Start/Home';
 import MurettoOptions from './Components/MurettoOptions';
 import RapperList from "./Components/ListaRapper/RapperList";
 import Ranking from './Components/Rank/Ranking';  // La pagina per il ranking

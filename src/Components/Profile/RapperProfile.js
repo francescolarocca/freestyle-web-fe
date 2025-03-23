@@ -29,7 +29,7 @@ const RapperProfile = () => {
   return (
     <div className="rapper-profile">
       <h2>{rapperData.nome}</h2>
-      <img src={rapperData.avatarUrl} alt="Avatar" className="avatar" />
+      <img src={rapperData.avatarUrl || null} alt="Avatar" className="avatar" />
       <p>{rapperData.bio}</p>
       <p>Rank: {rapperData.rank}</p>
       <p>Presenze: {rapperData.presenze.length}</p>

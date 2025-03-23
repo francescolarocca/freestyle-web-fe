@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const AddPresenzaRankingModal = ({ closeModal, onPresenzaAdded, rapper }) => {
+const AddPresenzaRankingModal = ({ closeModal, onPresenzaAdded, rapper, valore }) => {
   // Stato per il form
   const [formData, setFormData] = useState({
     rapper: "",
@@ -22,7 +22,7 @@ const AddPresenzaRankingModal = ({ closeModal, onPresenzaAdded, rapper }) => {
     const API_BASE_URL = 'http://localhost:8080/murettifreestyle';
     try {
       // Invia il JSON al server tramite POST
-      const response = await fetch(`${API_BASE_URL}/addPresenza/Muretto/Messina/${formData.rapper}`, {
+      const response = await fetch(`${API_BASE_URL}/addPresenza/Muretto/${valore}/${formData.rapper}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json', // Indica che inviamo JSON
@@ -32,6 +32,7 @@ const AddPresenzaRankingModal = ({ closeModal, onPresenzaAdded, rapper }) => {
 
       if (response.ok) {
         closeModal(); // Chiudi il modale
+        alert("Presente")
         onPresenzaAdded();
       } else {
         throw new Error("Errore nella creazione dell'appello");

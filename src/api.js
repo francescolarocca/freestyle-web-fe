@@ -61,28 +61,41 @@ export const createItem = async (newItem) => {
   };
 
   // Funzione per aggiungere un nuovo rapper
-export const addRapper = async (valore ,murettoId, nome, rank) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/addRapper?valore=${valore}&alias=${murettoId}&nome=${nome}&rank=${rank}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error("Errore nell'aggiungere il rapper");
+  export const addRapper = async (valore, murettoId, rapper) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/addRapper`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          valore: valore,
+          alias: murettoId,
+          rapper: {
+            nome: rapper.nome,
+            rank: rapper.rank,
+            bio: rapper.bio,
+            avatarUrl: rapper.avatarUrl,
+            spotifyLink: rapper.spotifyLink,
+            soundcloudLink: rapper.soundcloudLink,
+            instagramLink: rapper.instagramLink,
+          }
+        })
+      });
+  
+      if (!response.ok) {
+        throw new Error("Errore nell'aggiungere il rapper");
+      }
+  
+    } catch (error) {
+      console.error("Errore nella chiamata API", error);
+      throw error;
     }
-
-    
-  } catch (error) {
-    console.error("Errore nella chiamata API", error);
-    throw error;
-  }
-};
+  };
 export const deleteRapper = async (valore ,alias, nomeRapper) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/deleteRapper/${valore}/${alias}?nome=${nomeRapper}`, {
+    let nomePulito =nomeRapper.trim()
+    const response = await fetch(`${API_BASE_URL}/deleteRapper/${valore}/${alias}?nome=${encodeURIComponent(nomePulito)}`, {
       method: 'DELETE',
     });
     if (!response.ok) {
@@ -109,9 +122,46 @@ export const updateRapperNameRank = async (valore ,oldName,name, rank) => {
     
   } catch (error) {
     console.error("Errore nella chiamata API", error);
+
+    
+    throw error;
+  }
+
+
+  
+};
+
+// api.js
+
+export const addMuretto = async ({ alias, valore, tipo, ranking }) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        alias,
+        valore,
+        tipo: "Muretto",
+        
+      }),
+    });
+
+    if (response.ok) {
+      const data = await response.json(); // Converti la risposta JSON in un oggetto JavaScript
+      console.log("Muretto aggiunto con successo:", data);
+      alert("Muretto aggiunto con successo!");
+    } else {
+      const errorData = await response.text(); // Ottieni eventuali messaggi di errore
+      alert("Errore durante l'aggiunta del muretto: " + errorData);
+    }
+  } catch (error) {
+    console.error("Errore durante la chiamata API:", error);
     throw error;
   }
 };
+
 
 
 

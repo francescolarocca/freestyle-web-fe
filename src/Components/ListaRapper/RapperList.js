@@ -9,8 +9,15 @@ import UpdateRapperModal from './UpdateRapperModal';
 const RapperList = () => {
   const { murettoId } = useParams();
   const [rapper, setRapper] = useState([]);
-  const [newRapper, setNewRapper] = useState("");
-  const [newRank, setNewRank] = useState(0);
+  const [rapperData, setRapperData] = useState({
+    nome: "",
+    rank: "",
+    bio: "",
+    avatarUrl: "",
+    spotifyLink: "",
+    soundcloudLink: "",
+    instagramLink: ""
+  });
   const [errorMessage, setErrorMessage] = useState("");
   const [valore, setValore] = useState("");
 
@@ -35,28 +42,39 @@ const RapperList = () => {
   }, [murettoId]);
 
   const handleAddRapper = async () => {
-    if (newRapper && newRank >= 0) {
+    if (rapperData.nome && rapperData.rank >= 0) {
       try {
-        await addRapper(valore, murettoId, newRapper, newRank);
+        await addRapper(valore, murettoId, rapperData);
         alert("Rapper aggiunto con successo!");
-        setNewRapper("");
-        setNewRank(0);
+
+        // Reset form
+        setRapperData({
+          nome: "",
+          rank: "",
+          bio: "",
+          avatarUrl: "",
+          spotifyLink: "",
+          soundcloudLink: "",
+          instagramLink: ""
+        });
 
         const responseItems = await getAllItems();
         const muretto = responseItems.find(item => item.alias === murettoId && item.tipo === "Muretto");
         setRapper(muretto?.rapper || []);
+        setErrorMessage("");
       } catch (error) {
         setErrorMessage("Errore durante l'aggiunta del rapper.");
       }
     } else {
-      setErrorMessage("Inserisci il nome del rapper e un rank valido.");
+      setErrorMessage("Compila almeno nome e un rank valido.");
     }
   };
 
   const handleDeleteRapper = async (nomeRapper) => {
     if (window.confirm(`Sei sicuro di voler eliminare ${nomeRapper}?`)) {
       try {
-        await deleteRapper(valore, murettoId, nomeRapper);
+        const nomePulito = nomeRapper.trim();
+        await deleteRapper(valore, murettoId, nomePulito);
         alert("Rapper eliminato con successo!");
         const responseItems = await getAllItems();
         const muretto = responseItems.find(item => item.alias === murettoId && item.tipo === "Muretto");
@@ -88,7 +106,7 @@ const RapperList = () => {
 
         const responseItems = await getAllItems();
         const muretto = responseItems.find(item => item.alias === murettoId && item.tipo === "Muretto");
-        setRapper(muretto?.rapper || []);
+        setRapper(muretto?.rapper.trim() || []);
         closeModal();
       } catch (error) {
         setErrorMessage("Errore durante l'aggiornamento del rank.");
@@ -103,7 +121,7 @@ const RapperList = () => {
       <h2 className="title">Lista dei rapper {murettoId}</h2>
       <RapperTable rapper={rapper} openModal={openModal} handleDeleteRapper={handleDeleteRapper} />
       <UpdateRapperModal {...{ isModalOpen, closeModal, updatedName, setUpdatedName, updatedRank, setUpdatedRank, handleUpdateRank }} />
-      <AddRapperForm {...{ newRapper, setNewRapper, newRank, setNewRank, handleAddRapper, errorMessage }} />
+      <AddRapperForm {...{ rapperData, setRapperData, handleAddRapper, errorMessage }}  />
     </div>
   );
 };

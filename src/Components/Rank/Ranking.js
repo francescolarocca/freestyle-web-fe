@@ -19,14 +19,17 @@ const Ranking = () => {
     posizionamento: "",
     moltiplicatore: "",
   });
+  const [valore,setValore] = useState(null)
 
   const fetchRappers = async () => {
     try {
       const response = await getAllItems();
       const muretto = response.find(item => item.alias === murettoName && item.tipo === 'Muretto');
+      
 
       if (muretto && muretto.rapper) {
         const sortedRappers = muretto.rapper.sort((a, b) => b.rank - a.rank);
+        setValore(muretto.valore)
         setRapper(muretto.rapper); // Imposta i rapper del muretto
       } else {
         console.log("Muretto non trovato o non ha rapper.");
@@ -64,6 +67,7 @@ const Ranking = () => {
           formData={formData}
           setFormData={setFormData}
           rapper={rapper}
+          valore={valore}
         />
       )}
 
