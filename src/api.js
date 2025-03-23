@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080/murettifreestyle'; // Assicurati che l'URL sia corretto
+const API_BASE_URL = 'https://strettocypher.duckdns.org/murettifreestyle'; // Assicurati che l'URL sia corretto
 
 export const getAllItems = async () => {
   try {
