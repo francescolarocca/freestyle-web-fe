@@ -162,6 +162,17 @@ export const addMuretto = async ({ alias, valore, tipo, ranking }) => {
   }
 };
 
+export const uploadAvatar = async (valore, nome, alias, formData) => {
+  return axios.post(
+    `http://localhost:8080/murettifreestyle/upload-avatar/Muretto/${valore}/${nome}/${alias}`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+};
 
 
 

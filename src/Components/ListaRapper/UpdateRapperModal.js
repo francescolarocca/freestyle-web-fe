@@ -1,6 +1,6 @@
 import React from "react";
 
-const UpdateRapperModal = ({ isModalOpen, closeModal, updatedName, setUpdatedName, updatedRank, setUpdatedRank, handleUpdateRank }) => {
+const UpdateRapperModal = ({ isModalOpen, closeModal, updatedName, setUpdatedName, updatedRank, setUpdatedRank, handleUpdateRank, openModal }) => {
   if (!isModalOpen) return null;
 
   return (
