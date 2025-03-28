@@ -1,81 +1,41 @@
 import React from "react";
 
-const AddRapperForm = ({ rapperData, setRapperData, handleAddRapper, errorMessage }) => {
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setRapperData({ ...rapperData, [name]: value });
-  };
+const AddRapperForm = ({ rapperData, setRapperData, handleAddRapper, setSelectedFile, errorMessage }) => {
 
+  const handleFileChange = (event) => {
+    const file = event.target.files[0]; // Ottiene il file selezionato
+    if (file) {
+      setRapperData(prevState => ({ ...prevState, avatar: file }));
+      console.log("📌 File selezionato:", file.name);
+    }
+  };
   return (
     <div>
-      <h3 className="subtitle">Aggiungi un nuovo rapper</h3>
-
-      <input 
-        type="text" 
-        className="input-field"
-        name="nome"
-        value={rapperData.nome} 
-        onChange={handleChange} 
-        placeholder="Nome del rapper" 
+      <h3>Aggiungi un nuovo rapper</h3>
+      <input
+        type="text"
+        placeholder="Nome rapper"
+        value={rapperData.nome}
+        onChange={(e) => setRapperData({ ...rapperData, nome: e.target.value })}
       />
-
       <input
         type="number"
-        className="input-field"
-        name="rank"
-        value={rapperData.rank}
-        onChange={handleChange}
         placeholder="Rank"
+        value={rapperData.rank}
+        onChange={(e) => setRapperData({ ...rapperData, rank: parseInt(e.target.value) })}
       />
-
-      <input
-        type="text"
-        className="input-field"
-        name="bio"
+      <textarea
+        placeholder="Bio del rapper"
         value={rapperData.bio}
-        onChange={handleChange}
-        placeholder="Bio"
+        onChange={(e) => setRapperData({ ...rapperData, bio: e.target.value })}
       />
-
-      <input
-        type="text"
-        className="input-field"
-        name="avatarUrl"
-        value={rapperData.avatarUrl}
-        onChange={handleChange}
-        placeholder="Avatar URL"
-      />
-
-      <input
-        type="text"
-        className="input-field"
-        name="spotifyLink"
-        value={rapperData.spotifyLink}
-        onChange={handleChange}
-        placeholder="Spotify Link"
-      />
-
-      <input
-        type="text"
-        className="input-field"
-        name="soundcloudLink"
-        value={rapperData.soundcloudLink}
-        onChange={handleChange}
-        placeholder="SoundCloud Link"
-      />
-
-      <input
-        type="text"
-        className="input-field"
-        name="instagramLink"
-        value={rapperData.instagramLink}
-        onChange={handleChange}
-        placeholder="Instagram Link"
-      />
-
-      <button className="btn btn-add" onClick={handleAddRapper}>Aggiungi</button>
-
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      
+      {/* Upload Avatar */}
+      <input type="file" accept="image/*" onChange={handleFileChange} />
+      
+      <button onClick={handleAddRapper}>Aggiungi Rapper</button>
+      
+      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
     </div>
   );
 };
