@@ -3,15 +3,9 @@ import { useParams,useNavigate } from 'react-router-dom';
 
 function MurettoPage() {
   const { id } = useParams();
-   const navigate = useNavigate();
- 
-
   
-  return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold text-center mb-8 text-primary">
-        {id} Dashboard
-      </h1>
+   const navigate = useNavigate();
+  return (    
       <div className="flex items-start justify-center px-4 py-4"> {/* ridotto padding */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
         <div
@@ -43,7 +37,6 @@ function MurettoPage() {
           Appello
         </div>
       </div>
-    </div>
     </div>
   );
 }

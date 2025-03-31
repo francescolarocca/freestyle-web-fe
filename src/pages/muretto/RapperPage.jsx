@@ -1,6 +1,6 @@
 import React from 'react';
 
-function RapperCard({rappers}) {
+function RapperPage({rappers}) {
 
 
   return (
@@ -23,4 +23,4 @@ function RapperCard({rappers}) {
   );
 }
 
-export default RapperCard;
+export default RapperPage;

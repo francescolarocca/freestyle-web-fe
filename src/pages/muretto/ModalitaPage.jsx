@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ModalitaCard() {
+function ModalitaPage() {
   const modalita = [
     { id: 1, name: "Freestyle Battle", description: "1vs1 battaglia freestyle" },
     { id: 2, name: "Cypher", description: "Sessione di gruppo" },
@@ -26,4 +26,4 @@ function ModalitaCard() {
   );
 }
 
-export default ModalitaCard;
+export default ModalitaPage;
