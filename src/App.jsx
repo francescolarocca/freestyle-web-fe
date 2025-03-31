@@ -5,8 +5,10 @@ import {
 } from 'react-router-dom'
 import HomePage from './pages/HomePage';
 import MurettoLayout from './pages/muretto/MurettoLayout';
-import MurettoPage from './pages/muretto/MurettoPage';
+import MurettoDashboardPage from './pages/muretto/MurettoDashboardPage';
 import RankingPage from './pages/muretto/RankingPage';
+import ModalitaPage from './pages/muretto/ModalitaPage';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -16,8 +18,10 @@ const router = createBrowserRouter([
     path: '/muretto/:id',
     element: <MurettoLayout />,
     children: [
-      { index: true, element: <MurettoPage /> },
+      { index: true, element: <MurettoDashboardPage /> },
       { path: 'ranking', element: <RankingPage /> },
+      { path: 'modalita', element: <ModalitaPage /> },
+
     ],
   },
 ]);

@@ -1,9 +1,11 @@
 import React from 'react';
-
+import useOutletContext from 'react-router-dom';
 function ModalitaPage() {
+    const { muretto } = useOutletContext();
+  
   const modalita = [
-    { id: 1, name: "Freestyle Battle", description: "1vs1 battaglia freestyle" },
-    { id: 2, name: "Cypher", description: "Sessione di gruppo" },
+    { id: 1, name: "1v1", description: "1vs1 battaglia freestyle" },
+    { id: 2, name: "2v2", description: "Sessione di gruppo" },
     { id: 3, name: "Time Attack", description: "60 secondi di fuoco" },
   ];
 
@@ -13,13 +15,7 @@ function ModalitaPage() {
       
       <div className="space-y-4">
         {modalita.map((mode) => (
-          <div 
-            key={mode.id}
-            className="p-4 border rounded-lg cursor-pointer hover:bg-gray-50"
-          >
-            <h3 className="font-semibold">{mode.name}</h3>
-            <p className="text-gray-600 text-sm">{mode.description}</p>
-          </div>
+          <Card key={mode} onclickApply={() => navigate(`/muretto/${muretto.alias}/modalita`)} title='Appello' icon={"🤚"} ></Card>
         ))}
       </div>
     </div>
