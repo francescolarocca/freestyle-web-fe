@@ -1,6 +1,4 @@
-import React, { useState,useEffect, } from 'react';
-import {useOutletContext} from 'react-router-dom';
-import { findAllMuretti } from '../../services/muretto';
+import React from 'react';
 function RankingRow ({row,toggleDetails }) {
   return (
     <tr className="border-b hover:bg-gray-50 transition">
