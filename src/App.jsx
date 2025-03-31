@@ -6,8 +6,8 @@ import {
 import HomePage from './pages/HomePage';
 import MurettoLayout from './pages/muretto/MurettoLayout';
 import MurettoDashboardPage from './pages/muretto/MurettoDashboardPage';
-import RankingPage from './pages/muretto/RankingPage';
-import ModalitaPage from './pages/muretto/ModalitaPage';
+import RankingPage from './pages/muretto/ranking/RankingPage';
+import ModalitaPage from './pages/muretto/modalita/ModalitaPage';
 import ModalitaLayout from './pages/muretto/modalita/ModalitaLayout';
 import OneVsOne from './pages/muretto/modalita/OneVsOne';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import {useOutletContext} from 'react-router-dom';
-import RankingTable from '../../components/ranking/RankingTable';
+import RankingTable from '../../../components/ranking/RankingTable';
 function RankingPage() {
   const { muretto } = useOutletContext();
   return (
