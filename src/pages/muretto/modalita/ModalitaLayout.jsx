@@ -52,7 +52,6 @@ function ModalitaLayout() {
           </Accordion>
           </>
       }
-
       <Outlet context={outletContext} />
     </>
   );
