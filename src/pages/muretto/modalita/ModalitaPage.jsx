@@ -7,14 +7,13 @@ function ModalitaPage() {
    const navigate = useNavigate();
   const modalita = [
     { id: 1, name: "1v1", description: "1vs1 classic",icon : "👥" },
-    { id: 2, name: "2v2", description: "2v2 classic", icon: "👥 👥"},
-    { id: 3, name: "Torneo", description: "60 secondi di fuoco",icon :"🏆"},
+    { id: 2, name: "2v2", description: "2vs2 classic", icon: "👥 👥"},
+    { id: 3, name: "Torneo", description: "Chi vincerà?",icon :"🏆"},
   ];
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6">
-      
-      <div className="space-y-4">
+    <div className="flex items-start justify-center px-5 py-5"> {/* ridotto padding */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-2xl">
         {modalita.map((mode) => (
           <Card key={mode.name} onclickApply={() => navigate(`/muretto/${muretto.alias}/modalita/OneVsOne`)} title={mode.name} icon={mode.icon} description={mode.description} ></Card>
         ))}

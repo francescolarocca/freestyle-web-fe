@@ -1,9 +1,11 @@
 import { useState } from 'react';
+
 import React from 'react';
 
-const RapperSelector = ({ rappers = [], onSelectionChange }) => {
-  const [selected, setSelected] = useState([]);
+const RapperSelector = ({ rappers = [], rapperSelected, onSelectionChange }) => {
 
+  const [selected, setSelected] = useState([... rapperSelected]);
+ 
   const toggleRapper = (nome) => {
     const isSelected = selected.includes(nome);
     const updated = isSelected
@@ -11,6 +13,8 @@ const RapperSelector = ({ rappers = [], onSelectionChange }) => {
       : [...selected, nome];
 
     setSelected(updated);
+    console.log("Chiamo la funzione di callback con:", updated);
+
     onSelectionChange?.(updated); // notifica al genitore
   };
 

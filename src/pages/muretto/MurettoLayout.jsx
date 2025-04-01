@@ -15,6 +15,7 @@ function MurettoLayout() {
       'ranking': `${id} Ranking`,
       'rapper': `${id} Rapper`,
       'modalita': `${id} Modalita`,
+      'OneVsOne': `${id} Modalita 1vs1`,
     };
     const parts = location.pathname.split('/');
     const last = parts[parts.length - 1];
