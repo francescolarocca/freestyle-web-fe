@@ -10,6 +10,10 @@ import RankingPage from './pages/muretto/ranking/RankingPage';
 import ModalitaPage from './pages/muretto/modalita/ModalitaPage';
 import ModalitaLayout from './pages/muretto/modalita/ModalitaLayout';
 import OneVsOne from './pages/muretto/modalita/OneVsOne';
+import TwoVsTwo from './pages/muretto/modalita/TwoVsTwo';
+import RapperPage from './pages/muretto/rapper/RapperPage';
+import RapperLayout from './pages/muretto/rapper/RapperLayout';
+import NewRapper from './pages/muretto/rapper/NewRapper';
 
 const router = createBrowserRouter([
   {
@@ -17,17 +21,25 @@ const router = createBrowserRouter([
     element: <HomePage />,
   },
   {
-    path: '/muretto/:id',
+    path: '/muretto/:aliasMuretto',
     element: <MurettoLayout />,
     children: [
       { index: true, element: <MurettoDashboardPage /> },
-      { path: 'ranking', element: <RankingPage /> },
+      { path: 'ranking', element: <RankingPage/> },
+      { path: 'rapper', 
+        element: <RapperLayout /> ,
+        children : [
+          {index: true, element: <RapperPage />},
+          {path:'new',element: <NewRapper/>} // schermata con i tab
+        ]
+      },
       {
         path: 'modalita',
         element: <ModalitaLayout />, // diventa un layout con <Outlet />
         children: [
           { index: true, element: <ModalitaPage /> }, // schermata con i tab
           { path: 'OneVsOne', element: <OneVsOne /> },
+          { path: 'TwoVsTwo', element: <TwoVsTwo /> },
         ],
       },
 

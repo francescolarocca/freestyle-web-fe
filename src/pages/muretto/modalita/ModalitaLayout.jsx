@@ -1,21 +1,16 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useOutletContext, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Outlet } from 'react-router-dom'
 import Accordion from '../../../components/ui/Accordion';
 import RapperSelector from '../../../components/rapper/RapperSelector';
 import Youtube from '../../../components/ui/Youtube';
+import { useMuretto } from '../MurettoContext';
 
 function ModalitaLayout() {
   const location = useLocation();
   const videos = ["PL_v1QuCtH478I4LBek3LbTjiqyMlC151L&ab_channel=KidJimi"]
-  const { muretto } = useOutletContext();
-
+  const  muretto  = useMuretto();
   const [selectedRappers, setSelectedRappers] = useState([]);
-
-
-  const outletContext = useMemo(() => ({ muretto, selectedRappers }), [muretto, selectedRappers]);
-
-
   const [expandedSections, setExpandedSections] = useState({
     rappers: false,
     beat: false
@@ -52,7 +47,7 @@ function ModalitaLayout() {
           </Accordion>
           </>
       }
-      <Outlet context={outletContext} />
+      <Outlet context={{selectedRappers}} />
     </>
   );
 }

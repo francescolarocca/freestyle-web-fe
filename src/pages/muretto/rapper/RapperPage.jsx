@@ -1,25 +1,27 @@
 import React from 'react';
-
-function RapperPage({rappers}) {
-
-
+import { useOutletContext } from 'react-router-dom';
+import RapperList from '../../../components/rapper/RapperList';
+import Button from '../../../components/ui/Button';
+import { useNavigate } from 'react-router-dom';
+import { useMuretto } from '../MurettoContext';
+function RapperPage() {
+  const navigate = useNavigate();
+  const  muretto  = useMuretto();
+  function handleRapperClick(rapper) {
+    console.log('Rapper clicked:', rapper);
+  }
+  function aggiungiRapper() {
+    console.log('Aggiungi rapper:');
+    navigate(`/muretto/${muretto.alias}/rapper/new`); // Naviga alla pagina di aggiunta rapper
+  }
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6">
-      <h2 className="text-2xl font-bold mb-4">Rappers</h2>
-      
-      <div className="space-y-4">
-        {rappers.map((rapper) => (
-          <div 
-            key={rapper.nome}
-            className="p-4 border rounded-lg"
-          >
-            <h3 className="font-semibold">{rapper.nome}</h3>
-            <p className="text-gray-600 text-sm">Bio: {rapper.bio}</p>
-            <p className="text-gray-600 text-sm">Instagram: {rapper.instagramLink}</p>
-          </div>
-        ))}
+    <div className="min-h-screen bg-slate-100">
+      <RapperList rappers={muretto?.rapper} onRapperClick={handleRapperClick} />
+      <div className='flex justify-center items-center mt-4'>
+        <Button label="Aggiungi Rapper" onClick={aggiungiRapper}></Button>
       </div>
     </div>
+
   );
 }
 
