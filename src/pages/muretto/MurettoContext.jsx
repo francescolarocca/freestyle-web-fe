@@ -1,6 +1,10 @@
 import { createContext, useContext } from 'react';
+import { findAllMuretti } from '../../services/muretto';
 
-export const MurettoContext = createContext(null); // puoi tipizzare meglio se vuoi
+export const MurettoContext = createContext({
+  muretto : null,
+  findMurettoByAlias: () => {},
+}); // puoi tipizzare meglio se vuoi
 
 export const useMuretto = () => {
   const context = useContext(MurettoContext);

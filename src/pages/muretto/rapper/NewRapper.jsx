@@ -2,9 +2,12 @@ import React , { useState }from "react";
 import {addRapper} from "../../../services/muretto.js";
 import { useMuretto } from '../MurettoContext';
 import { useNavigate } from "react-router-dom";
+import {useNotify} from '../context/NotifyContext.jsx';
+import Notify from "../../../components/ui/Notify.jsx";
 function NewRapper() {
-    const  muretto  = useMuretto();
-    let [showSuccess, setShowSuccess] = useState(false);
+    const { setShowSuccess, setMessage } = useNotify();
+  
+    const  {muretto,findMurettoByAlias}  = useMuretto();
     const navigate = useNavigate();
     const handleChange = (
       e
@@ -33,6 +36,7 @@ function NewRapper() {
       rapper : rapperData
     }
     await addRapper(addRapperRequest);
+    setMessage("Rapper aggiunto con successo!");
     setShowSuccess(true)
 
     setTimeout(() => {
@@ -50,17 +54,6 @@ function NewRapper() {
       
     <div className="relative max-w-xl mx-auto">
     {/* ✅ Notifica animata */}
-    <div
-      className={`absolute top-0 left-0 right-0 mx-auto mt-[-3rem] w-fit transition-all duration-500 ease-out ${
-        showSuccess
-          ? 'opacity-100 translate-y-12'
-          : 'opacity-0 -translate-y-4 pointer-events-none'
-      }`}
-    >
-      <div className="bg-green-500 text-white px-6 py-2 rounded-xl shadow-lg text-sm font-medium">
-        Rapper aggiunto con successo!
-      </div>
-    </div>
     <form
       onSubmit={handleSubmit}
       className="max-w-xl mx-auto bg-white shadow-lg p-6 rounded-xl space-y-6"

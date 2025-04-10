@@ -14,6 +14,7 @@ import TwoVsTwo from './pages/muretto/modalita/TwoVsTwo';
 import RapperPage from './pages/muretto/rapper/RapperPage';
 import RapperLayout from './pages/muretto/rapper/RapperLayout';
 import NewRapper from './pages/muretto/rapper/NewRapper';
+import RappperDetail from './pages/muretto/rapper/RapperDetail';
 
 const router = createBrowserRouter([
   {
@@ -30,7 +31,8 @@ const router = createBrowserRouter([
         element: <RapperLayout /> ,
         children : [
           {index: true, element: <RapperPage />},
-          {path:'new',element: <NewRapper/>} // schermata con i tab
+          {path:'new',element: <NewRapper/>},
+          {path:'detail/:nome',element: <RappperDetail/>} // schermata con i tab
         ]
       },
       {
