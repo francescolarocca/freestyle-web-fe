@@ -4,11 +4,15 @@ import RapperList from '../../../components/rapper/RapperList';
 import Button from '../../../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
 import { useMuretto } from '../MurettoContext';
+import { deleteRapper } from '../../../services/muretto';
 function RapperPage() {
   const navigate = useNavigate();
   const  muretto  = useMuretto();
   function handleRapperClick(rapper) {
     console.log('Rapper clicked:', rapper);
+  }
+ async function onDeleteRapper(rapper) {
+    deleteRapper({ "valore": muretto.valore, "alias": muretto.alias, "nome": rapper.nome });
   }
   function aggiungiRapper() {
     console.log('Aggiungi rapper:');
@@ -16,7 +20,7 @@ function RapperPage() {
   }
   return (
     <div className="min-h-screen bg-slate-100">
-      <RapperList rappers={muretto?.rapper} onRapperClick={handleRapperClick} />
+      <RapperList rappers={muretto?.rapper} onRapperClick={handleRapperClick} onDeleteRapper={onDeleteRapper}/>
       <div className='flex justify-center items-center mt-4'>
         <Button label="Aggiungi Rapper" onClick={aggiungiRapper}></Button>
       </div>
