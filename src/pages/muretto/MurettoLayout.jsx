@@ -3,24 +3,38 @@ import { useParams, useLocation } from 'react-router-dom';
 import { Outlet } from 'react-router-dom'
 import { findAllMuretti } from '../../services/muretto';
 import { MurettoContext } from './MurettoContext';
-import { NotifyContext, useNotify } from './context/NotifyContext';
+import { NotifyContext  } from './context/NotifyContext';
 import Notify from '../../components/ui/Notify';
 function MurettoLayout() {
+
+  // stato di caricamento e errore
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   // Recupero i parametri della route
   const { aliasMuretto } = useParams();
   const { nomeRapper } = useParams();
-  // stato per il titolo della pagina e del muretto
+  // stato per il titolo della pagina e per le info del muretto
   const [title, setPageTitle] = useState(`${aliasMuretto} Dashboard`);
   const [muretto, setMuretto] = useState(null);
 
-  const value = useMemo(() => (muretto), [muretto]);
+  // stato per i messaggi di notifica
   const [message, setMessage] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
+
+  // oggetto location per fare i routing
   const location = useLocation();
-  async function findMurettoByAlias() {
+
+  // funzione per recuperare il muretto
+  const findMurettoByAlias = async () => {
+    
     const result = await findAllMuretti();
+    console.log('call findMurettoByAlias')
     setMuretto(result.data.find(i => i.alias === aliasMuretto));
+    setLoading(false);
+      
   }
+
+  // initial loading state
   useEffect(() => {
 
     /**GESTIONE ROUTE TITLES *************/
@@ -42,20 +56,23 @@ function MurettoLayout() {
 
     /**RECUPERO DEL MURETTO CONDIVIDENDOLO CON LE PAGINE <OUTLET> FIGLIE ********/
    
-   if(muretto == null){
-     findMurettoByAlias();
+   if(!muretto){
+      setLoading(true);
+      setError(null);
+      findMurettoByAlias();
    }
 
-    console.log("MurettoLayout:", value);
-    console.log("Alias", aliasMuretto);
 
     /*******************************************/
   }, [location]);
 
+  if (loading) return <div className="text-center p-6">Caricamento...</div>;
+  if (error) return <div className="text-red-500 text-center p-6">{error}</div>;
+  if (!muretto) return null; // fallback di sicurezza
   return (
     <NotifyContext.Provider value={{ showSuccess, setShowSuccess, message, setMessage }}>
       <Notify message={message} showSuccess={showSuccess} />
-      <MurettoContext.Provider value={{ value, findMurettoByAlias }}>
+      <MurettoContext.Provider value={{ muretto, findMurettoByAlias }}>
         <div className="container mx-auto px-4 py-8">
           <h1 className="text-4xl font-bold text-center mb-8 text-primary">
             {title}

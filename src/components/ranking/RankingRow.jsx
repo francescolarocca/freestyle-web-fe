@@ -1,5 +1,6 @@
 import React from 'react';
 function RankingRow ({row,toggleDetails }) {
+  
   return (
     <tr className="border-b hover:bg-gray-50 transition">
       <td className="px-6 py-4 font-medium text-gray-900">{row.nome}</td>

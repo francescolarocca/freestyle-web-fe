@@ -1,12 +1,9 @@
-import React , { useRef, useState }from "react";
-import {addRapper} from "../../../services/muretto.js";
+import React from 'react';
 import { useMuretto } from '../MurettoContext';
-import { useNavigate } from "react-router-dom";
-import {useNotify} from '../context/NotifyContext.jsx';
-import { murettoContext } from "../MurettoContext";
-function NewRapper() {
+import { useNavigate } from 'react-router-dom';
+const AddPresenza = () => {
     const { setShowSuccess, setMessage } = useNotify();
-    const {findMurettoByAlias} = murettoContext()
+    const refreshMurettos = refreshMuretto()
     const  muretto  = useMuretto();
     const navigate = useNavigate();
     const handleChange = (
@@ -39,10 +36,10 @@ function NewRapper() {
     
     setMessage("Rapper aggiunto con successo!");
     setShowSuccess(true)
-    findMurettoByAlias();
+    refreshMurettos()
     setTimeout(() => {
       setShowSuccess(false);
-    }, 1000);
+    }, 3000);
     
     console.log("Rapper data submitted:", rapperData);
     if(formData.get('addAgain') == "on") {
@@ -140,5 +137,6 @@ function NewRapper() {
     </form>
     </div>
   );
-}
-export default NewRapper;
+};
+
+export default AddPresenza;
