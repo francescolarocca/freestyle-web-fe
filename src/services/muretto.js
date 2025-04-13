@@ -10,11 +10,11 @@ export const addRapper = (addRapperRequest) => api.post('/addRapper', addRapperR
     }
 });
 
-export const deleteRapper = (deleteRapperRequest) => {
+export const deleteRapper = async (deleteRapperRequest) => {
     let valore = deleteRapperRequest.valore;
     let alias = deleteRapperRequest.alias;
     let nome = deleteRapperRequest.nome;
-    api.delete((`/deleteRapper/${valore}/${alias}?nome=${nome}`), {
+    await api.delete((`/deleteRapper/${valore}/${alias}?nome=${nome}`), {
     headers: {
         'Content-Type': 'application/json'
     }

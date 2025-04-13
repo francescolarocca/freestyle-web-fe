@@ -24,8 +24,8 @@ function RapperPage() {
     setShowPopupDeleteModal(true);
   }
   async function handleDeleteRapper() {
-    deleteRapper({ "valore": muretto.valore, "alias": muretto.alias, "nome": rapperToDelete.nome });
-    findMurettoByAlias()
+    await deleteRapper({ "valore": muretto.valore, "alias": muretto.alias, "nome": rapperToDelete.nome });
+    findMurettoByAlias();
     setMessage('Rapper eliminato con successo!');
     setShowSuccess(true);
     setTimeout(() => {
