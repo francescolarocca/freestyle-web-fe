@@ -54,7 +54,6 @@ function NewRapper() {
   return (
       
     <div className="relative max-w-xl mx-auto">
-    {/* ✅ Notifica animata */}
     <form
       onSubmit={handleSubmit}
       className="max-w-xl mx-auto bg-white shadow-lg p-6 rounded-xl space-y-6"

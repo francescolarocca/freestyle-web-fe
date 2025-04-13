@@ -2,16 +2,36 @@ import React, { useState } from 'react';
 import RankingRow from './RankingRow';
 import RankingDetails from './RankingDetails';
 import Modal from '../ui/Modal';
+import PresenzaForm from '../ui/form/PresenzaForm';
 function RankingTable({ rapper }) {
   const [currentPage, setCurrentPage] = useState(1);
+  const [textConfirmModal, setTextConfirmModal] = useState("");
   const rappersPerPage = 10;
   const indexOfLast = currentPage * rappersPerPage;
   const indexOfFirst = indexOfLast - rappersPerPage;
   const currentRappers = rapper.slice(indexOfFirst, indexOfLast);
   const [expandedRapper, setExpandedRapper] = useState(null);
   const [showModalAddNew, setShowModalAddNew] = useState(false);
-
+  const [formDataNewPresenza, setFormDataNewPresenza] = useState({
+    data: '',
+    tipo: '',
+    posizionamento: '',
+    luogo: '',
+    descrizione: '',
+  });
+  const handleSubmitNewPresenza = (data) => {
+    setShowModalAddNew(false);
+    console.log('Nuova presenza:', data);
+  }
   const toggleAddNew = () => {
+    setTextConfirmModal("Aggiungi")
+    setFormDataNewPresenza({
+      data: '',
+      tipo: '',
+      posizionamento: '',
+      luogo: '',
+      descrizione: '',
+    })
     setShowModalAddNew((prev) => !prev);
   }
   const toggleDetails = (nome) => {
@@ -20,25 +40,20 @@ function RankingTable({ rapper }) {
   return (
 
     <>
-      <table className="w-full text-sm text-left text-gray-700">
+      <table className="w-full text-sm text-left text-gray-700 overflow-hidden">
         <thead className="bg-gray-200 text-gray-600 uppercase text-xs">
           <tr>
             <th className="px-2 py-3 w-1">Pos.</th>
-            <th className="px-6 py-3 w-60">Nome</th>
-            <th className="px-6 py-3 w-60">Rank</th>
-            <th className="px-6 py-3 w-60">azioni</th>
+            <th className="px-6 py-3 ">Nome</th>
+            <th className="px-6 py-3">Rank</th>
+            <th className="px-6 py-3 ">azioni</th>
           </tr>
         </thead>
         <tbody>
 
-          {currentRappers.map((row,index) => (
+          {currentRappers.map((row, index) => (
             <>
-              <RankingRow key={`${row.nome}-row`} row={row} toggleDetails={toggleDetails} toggleAddNew={toggleAddNew} posizione={ index + 1}/>
-
-              {(showModalAddNew && 
-               <Modal onCancel={() => setShowModalAddNew(false)}>
-
-              </Modal>)}
+              <RankingRow key={`${row.nome}-row`} row={row} toggleDetails={toggleDetails} toggleAddNew={toggleAddNew} posizione={index + 1} />
 
               {expandedRapper === row.nome &&
                 <RankingDetails
@@ -57,9 +72,7 @@ function RankingTable({ rapper }) {
         >
           ← Indietro
         </button>
-
         <span className="text-sm font-medium">{currentPage}</span>
-
         <button
           onClick={() =>
             setCurrentPage(prev =>
@@ -72,6 +85,12 @@ function RankingTable({ rapper }) {
           Avanti →
         </button>
       </div>
+
+
+      {(showModalAddNew &&
+        <Modal >
+          <PresenzaForm onCancel={() => setShowModalAddNew(false)} onSubmit={handleSubmitNewPresenza} formData={formDataNewPresenza} setFormData={setFormDataNewPresenza} textConfirm={textConfirmModal}/>
+        </Modal>)}
     </>
   );
 }
