@@ -22,6 +22,10 @@ const router = createBrowserRouter([
     element: <HomePage />,
   },
   {
+    path: '/muretto',
+    element: <HomePage />,
+  },
+  {
     path: '/muretto/:aliasMuretto',
     element: <MurettoLayout />,
     children: [

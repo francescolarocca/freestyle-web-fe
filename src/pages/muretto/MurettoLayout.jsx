@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { Outlet } from 'react-router-dom'
 import { findAllMuretti } from '../../services/muretto';
 import { MurettoContext } from './MurettoContext';
-import { NotifyContext  } from './context/NotifyContext';
+import { NotifyContext } from './context/NotifyContext';
 import Notify from '../../components/ui/Notify';
 function MurettoLayout() {
 
   // stato di caricamento e errore
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
   // Recupero i parametri della route
   const { aliasMuretto } = useParams();
@@ -26,12 +27,12 @@ function MurettoLayout() {
 
   // funzione per recuperare il muretto
   const findMurettoByAlias = async () => {
-    
+
     const result = await findAllMuretti();
     console.log('call findMurettoByAlias')
     setMuretto(result.data.find(i => i.alias === aliasMuretto));
     setLoading(false);
-      
+
   }
 
   // initial loading state
@@ -45,7 +46,7 @@ function MurettoLayout() {
       'OneVsOne': `${aliasMuretto} Modalita 1vs1`,
       'TwoVsTwo': `${aliasMuretto} Modalita 2vs2`,
       'new': `${aliasMuretto} Aggiungi Rapper`,
-       [nomeRapper] : `${nomeRapper} `
+      [nomeRapper]: `${nomeRapper} `
     };
     const parts = location.pathname.split('/');
     const last = parts[parts.length - 1];
@@ -55,12 +56,12 @@ function MurettoLayout() {
     /*********************************** */
 
     /**RECUPERO DEL MURETTO CONDIVIDENDOLO CON LE PAGINE <OUTLET> FIGLIE ********/
-   
-   if(!muretto){
+
+    if (!muretto) {
       setLoading(true);
       setError(null);
       findMurettoByAlias();
-   }
+    }
 
 
     /*******************************************/
@@ -77,7 +78,19 @@ function MurettoLayout() {
           <h1 className="text-4xl font-bold text-center mb-8 text-primary">
             {title}
           </h1>
+
           <Outlet /> {/* Qui va la pagina figlia: dashboard, ranking... a cui viene passato il muretto */}
+          <div className="flex items-start justify-center px-4 py-4"> {/* ridotto padding */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
+            <button
+          onClick={() => navigate(location.pathname.split('/').slice(0, -1).join('/'))}
+          className="flex items-center text-blue-600 hover:text-blue-800 font-semibold"
+        >
+          ← <span className="ml-1">Indietro</span>
+        </button>
+            </div>
+          </div>
+
         </div>
       </MurettoContext.Provider>
     </NotifyContext.Provider>
