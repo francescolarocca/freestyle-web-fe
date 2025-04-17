@@ -41,7 +41,7 @@ function RapperPage() {
     navigate(`/muretto/${muretto.alias}/rapper/new`); // Naviga alla pagina di aggiunta rapper
   }
   return (
-    <div className="min-h-screen bg-slate-100">
+    <div className="">
       <RapperList rappers={muretto?.rapper} onRapperClick={handleRapperClick} onDeleteRapper={showConfirm} />
       <ModalConfirm isOpen={showPopupDeleteModal} onConfirm={handleDeleteRapper} onCancel={() => setShowPopupDeleteModal(false)}></ModalConfirm>
       <div className='flex justify-center items-center mt-4'>

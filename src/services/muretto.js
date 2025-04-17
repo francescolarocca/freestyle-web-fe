@@ -42,3 +42,11 @@ export const addPresenza = async (addPresenzaRequest) => {
         }
     );
 };
+
+export const deletePresenza = async (deletePresenzaRequest) => {
+    await api.delete((`/${deletePresenzaRequest.valore}/${deletePresenzaRequest.nome}?data=${deletePresenzaRequest.data}`), {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+};

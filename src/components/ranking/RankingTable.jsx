@@ -3,16 +3,18 @@ import RankingRow from './RankingRow';
 import RankingDetails from './RankingDetails';
 import Modal from '../ui/Modal';
 import PresenzaForm from '../ui/form/PresenzaForm';
-import { addPresenza } from '../../services/muretto';
+import { addPresenza, deletePresenza } from '../../services/muretto';
 import { useMuretto } from '../../pages/muretto/MurettoContext';
 import { murettoContext } from '../../pages/muretto/MurettoContext';
 import { useNotify } from '../../pages/muretto/context/NotifyContext.jsx';
+import ModalConfirm from '../ui/ModalConfirm';
 function RankingTable({ rapper }) {
   const muretto = useMuretto();
-      const { setShowSuccess, setMessage } = useNotify();
-  
-  const {findMurettoByAlias} = murettoContext()
-  
+  const { setShowSuccess, setMessage } = useNotify();
+
+  const { findMurettoByAlias } = murettoContext()
+  const [showPopupDeletePresenzaModal, setShowPopupDeletePresenzaModal] = useState(false);
+  const [presenzaToDelete, setPresenzaToDelete] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [textConfirmModal, setTextConfirmModal] = useState("");
   const rappersPerPage = 10;
@@ -29,6 +31,28 @@ function RankingTable({ rapper }) {
     moltiplicatore: '',
     descrizione: '',
   });
+  const showConfirmDeletePresenza = (dataPresenza) =>  { 
+    setPresenzaToDelete(dataPresenza);
+    setShowPopupDeletePresenzaModal(true);
+  }
+  const handleDeletePresenza = async () => {
+
+    const deletePresenzaRequest = {
+      valore: muretto.valore,
+      nome: expandedRapper,
+      data: presenzaToDelete,
+    }
+    await deletePresenza(deletePresenzaRequest);
+    setShowPopupDeletePresenzaModal(false);
+
+    setMessage("Presenza eliminata con successo!");
+    setShowSuccess(true)
+    findMurettoByAlias();
+    setTimeout(() => {
+      setShowSuccess(false);
+    }, 1000);
+
+  }
   const handleSubmitNewPresenza = async (data) => {
     setShowModalAddNew(false);
     const addPresenzaRequest = {
@@ -41,7 +65,7 @@ function RankingTable({ rapper }) {
       moltiplicatore: data.moltiplicatore
     }
     await addPresenza(addPresenzaRequest);
-    setMessage("Rapper aggiunto con successo!");
+    setMessage("Presenza aggiunta con successo!");
     setShowSuccess(true)
     findMurettoByAlias();
     setTimeout(() => {
@@ -86,6 +110,7 @@ function RankingTable({ rapper }) {
                 <RankingDetails
                   key={`${row.nome}-details`}
                   presenze={row.presenze}
+                  onDelete={showConfirmDeletePresenza}
                 />}
             </>
           ))}
@@ -116,8 +141,11 @@ function RankingTable({ rapper }) {
 
       {(showModalAddNew &&
         <Modal >
-          <PresenzaForm onCancel={() => setShowModalAddNew(false)} onSubmit={handleSubmitNewPresenza} formData={formDataNewPresenza} setFormData={setFormDataNewPresenza} textConfirm={textConfirmModal}/>
+          <PresenzaForm onCancel={() => setShowModalAddNew(false)} onSubmit={handleSubmitNewPresenza} formData={formDataNewPresenza} setFormData={setFormDataNewPresenza} textConfirm={textConfirmModal} />
         </Modal>)}
+
+        <ModalConfirm isOpen={showPopupDeletePresenzaModal} onConfirm={handleDeletePresenza} onCancel={() => setShowPopupDeletePresenzaModal(false)}></ModalConfirm>
+
     </>
   );
 }
