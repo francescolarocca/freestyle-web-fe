@@ -3,7 +3,16 @@ import RankingRow from './RankingRow';
 import RankingDetails from './RankingDetails';
 import Modal from '../ui/Modal';
 import PresenzaForm from '../ui/form/PresenzaForm';
+import { addPresenza } from '../../services/muretto';
+import { useMuretto } from '../../pages/muretto/MurettoContext';
+import { murettoContext } from '../../pages/muretto/MurettoContext';
+import { useNotify } from '../../pages/muretto/context/NotifyContext.jsx';
 function RankingTable({ rapper }) {
+  const muretto = useMuretto();
+      const { setShowSuccess, setMessage } = useNotify();
+  
+  const {findMurettoByAlias} = murettoContext()
+  
   const [currentPage, setCurrentPage] = useState(1);
   const [textConfirmModal, setTextConfirmModal] = useState("");
   const rappersPerPage = 10;
@@ -13,23 +22,41 @@ function RankingTable({ rapper }) {
   const [expandedRapper, setExpandedRapper] = useState(null);
   const [showModalAddNew, setShowModalAddNew] = useState(false);
   const [formDataNewPresenza, setFormDataNewPresenza] = useState({
+    nomeRapper: '',
     data: '',
-    tipo: '',
+    evento: '',
     posizionamento: '',
-    luogo: '',
+    moltiplicatore: '',
     descrizione: '',
   });
-  const handleSubmitNewPresenza = (data) => {
+  const handleSubmitNewPresenza = async (data) => {
     setShowModalAddNew(false);
+    const addPresenzaRequest = {
+      tipo: muretto.tipo,
+      valore: muretto.valore,
+      nomeRapper: formDataNewPresenza.nomeRapper,
+      data: new Date(data.data).toISOString(),
+      evento: data.evento,
+      posizionamento: data.posizionamento,
+      moltiplicatore: data.moltiplicatore
+    }
+    await addPresenza(addPresenzaRequest);
+    setMessage("Rapper aggiunto con successo!");
+    setShowSuccess(true)
+    findMurettoByAlias();
+    setTimeout(() => {
+      setShowSuccess(false);
+    }, 1000);
     console.log('Nuova presenza:', data);
   }
-  const toggleAddNew = () => {
+  const toggleAddNew = (nome) => {
     setTextConfirmModal("Aggiungi")
     setFormDataNewPresenza({
+      nomeRapper: nome,
       data: '',
-      tipo: '',
+      evento: '',
       posizionamento: '',
-      luogo: '',
+      moltiplicatore: '',
       descrizione: '',
     })
     setShowModalAddNew((prev) => !prev);

@@ -9,11 +9,11 @@ function PresenzaForm({ onSubmit, onCancel, formData, setFormData, textConfirm }
 
         if (!formData.data) newErrors.data = 'La data è obbligatoria';
         if (!newErrors.data && isDateInFuture(formData.data)) newErrors.data = 'La data non può essere nel futuro';
-        if (!formData.tipo) newErrors.tipo = 'Devi selezionare un tipo';
+        if (!formData.evento) newErrors.evento = 'Devi selezionare un evento';
 
-        if (formData.tipo === 'battle') {
+        if (formData.evento === 'battle') {
             if (!formData.posizionamento) newErrors.posizionamento = 'Seleziona un posizionamento';
-            if (!formData.luogo) newErrors.luogo = 'Seleziona un luogo';
+            if (!formData.moltiplicatore) newErrors.moltiplicatore = 'Seleziona un moltiplicatore';
         }
 
         setErrors(newErrors);
@@ -37,7 +37,7 @@ function PresenzaForm({ onSubmit, onCancel, formData, setFormData, textConfirm }
         }
     };
 
-    const isBattle = formData.tipo === 'battle';
+    const isBattle = formData.evento === 'battle';
 
     return (
         <form
@@ -59,12 +59,12 @@ function PresenzaForm({ onSubmit, onCancel, formData, setFormData, textConfirm }
                 {errors.data && <p className="text-sm text-red-500">{errors.data}</p>}
             </div>
 
-            {/* Tipo Presenza */}
+            {/* evento Presenza */}
             <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Tipo Presenza</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Evento</label>
                 <select
-                    name="tipo"
-                    value={formData.tipo}
+                    name="evento"
+                    value={formData.evento}
                     onChange={handleChange}
                     className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
@@ -72,10 +72,10 @@ function PresenzaForm({ onSubmit, onCancel, formData, setFormData, textConfirm }
                     <option value="presenza">Presenza al Muretto</option>
                     <option value="battle">Battle</option>
                 </select>
-                {errors.tipo && <p className="text-sm text-red-500">{errors.tipo}</p>}
+                {errors.evento && <p className="text-sm text-red-500">{errors.evento}</p>}
             </div>
 
-            {/* Se tipo = battle → mostra campi aggiuntivi */}
+            {/* Se evento = battle → mostra campi aggiuntivi */}
             {isBattle && (
                 <>
                     {/* Posizionamento */}
@@ -97,12 +97,12 @@ function PresenzaForm({ onSubmit, onCancel, formData, setFormData, textConfirm }
                         {errors.posizionamento && <p className="text-sm text-red-500">{errors.posizionamento}</p>}
                     </div>
 
-                    {/* Luogo */}
+                    {/* moltiplicatore */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Luogo</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">moltiplicatore</label>
                         <select
-                            name="luogo"
-                            value={formData.luogo}
+                            name="moltiplicatore"
+                            value={formData.moltiplicatore}
                             onChange={handleChange}
                             className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
@@ -113,7 +113,7 @@ function PresenzaForm({ onSubmit, onCancel, formData, setFormData, textConfirm }
                             <option value="centro">Centro Italia</option>
                             <option value="nord">Nord Italia</option>
                         </select>
-                        {errors.luogo && <p className="text-sm text-red-500">{errors.luogo}</p>}
+                        {errors.moltiplicatore && <p className="text-sm text-red-500">{errors.moltiplicatore}</p>}
                     </div>
                 </>
             )}
