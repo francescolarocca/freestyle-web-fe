@@ -3,7 +3,7 @@ import RankingRow from './RankingRow';
 import RankingDetails from './RankingDetails';
 import Modal from '../ui/Modal';
 import PresenzaForm from '../ui/form/PresenzaForm';
-import { addPresenza, deletePresenza } from '../../services/muretto';
+import { addPresenza, deletePresenza, updateRapper } from '../../services/muretto';
 import { useMuretto } from '../../pages/muretto/MurettoContext';
 import { murettoContext } from '../../pages/muretto/MurettoContext';
 import { useNotify } from '../../pages/muretto/context/NotifyContext.jsx';
@@ -14,7 +14,11 @@ function RankingTable({ rapper }) {
 
   const { findMurettoByAlias } = murettoContext()
   const [showPopupDeletePresenzaModal, setShowPopupDeletePresenzaModal] = useState(false);
+  const [rapperToUpdate, setRapperToUpdate] = useState("");
+
   const [presenzaToDelete, setPresenzaToDelete] = useState({});
+  const [showModalUpdate, setShowModalUpdate] = useState(false);
+  const [newRankValue, setNewRankValue] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [textConfirmModal, setTextConfirmModal] = useState("");
   const rappersPerPage = 10;
@@ -31,7 +35,7 @@ function RankingTable({ rapper }) {
     moltiplicatore: '',
     descrizione: '',
   });
-  const showConfirmDeletePresenza = (dataPresenza) =>  { 
+  const showConfirmDeletePresenza = (dataPresenza) => {
     setPresenzaToDelete(dataPresenza);
     setShowPopupDeletePresenzaModal(true);
   }
@@ -85,6 +89,29 @@ function RankingTable({ rapper }) {
     })
     setShowModalAddNew((prev) => !prev);
   }
+  const toggleUpdate = (nome) => {
+    setTextConfirmModal("Update")
+    setShowModalUpdate(true);
+    setRapperToUpdate(nome);
+    setNewRankValue(muretto.rapper.find((r) => r.nome === nome).rank);
+
+  }
+  const aggiornaRank = async () => {
+    console.log('Nuovo rank:', newRankValue);
+    await updateRapper({
+      tipo: muretto.tipo,
+      valore: muretto.valore,
+      nomeRapper: rapperToUpdate,
+      newRank: newRankValue
+    })
+    setMessage("Rank aggiornato con successo!");
+    setShowSuccess(true)
+    setShowModalUpdate(false);
+    findMurettoByAlias();
+    setTimeout(() => {
+      setShowSuccess(false);
+    }, 1000);
+  }
   const toggleDetails = (nome) => {
     setExpandedRapper((prev) => (prev === nome ? null : nome));
   };
@@ -104,7 +131,11 @@ function RankingTable({ rapper }) {
 
           {currentRappers.map((row, index) => (
             <>
-              <RankingRow key={`${row.nome}-row`} row={row} toggleDetails={toggleDetails} toggleAddNew={toggleAddNew} posizione={index + 1} />
+              <RankingRow key={`${row.nome}-row`}
+                row={row} toggleDetails={toggleDetails}
+                toggleAddNew={toggleAddNew}
+                toggleUpdate={toggleUpdate}
+                posizione={(index + 1) + (currentPage!==1? (10* (currentPage-1)): 0)} />
 
               {expandedRapper === row.nome &&
                 <RankingDetails
@@ -143,8 +174,35 @@ function RankingTable({ rapper }) {
         <Modal >
           <PresenzaForm onCancel={() => setShowModalAddNew(false)} onSubmit={handleSubmitNewPresenza} formData={formDataNewPresenza} setFormData={setFormDataNewPresenza} textConfirm={textConfirmModal} />
         </Modal>)}
+      {(showModalUpdate &&
+        <Modal title={"Aggiorna Rank di " + rapperToUpdate} >
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Rank</label>
+            <input
+              type="number"
+              name="rank"
+              value={newRankValue}
+              onChange={(e) => setNewRankValue(e.target.value)}
+              className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div className="flex justify-end gap-3">
+            <button
+              onClick={() => setShowModalUpdate(false)}
+              className="px-4 py-2 rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition"
+            >
+              Annulla
+            </button>
+            <button
+              onClick={aggiornaRank}
+              className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-red-600 transition"
+            >
+              Aggiorna
+            </button>
+          </div>
+        </Modal>)}
 
-        <ModalConfirm isOpen={showPopupDeletePresenzaModal} onConfirm={handleDeletePresenza} onCancel={() => setShowPopupDeletePresenzaModal(false)}></ModalConfirm>
+      <ModalConfirm isOpen={showPopupDeletePresenzaModal} onConfirm={handleDeletePresenza} onCancel={() => setShowPopupDeletePresenzaModal(false)}></ModalConfirm>
 
     </>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-function RankingRow ({row,toggleDetails, toggleAddNew,posizione}) {
+function RankingRow ({row,toggleDetails, toggleAddNew,toggleUpdate,posizione}) {
   
   return (
     <tr className="border-b hover:bg-gray-50 transition">
@@ -20,6 +20,13 @@ function RankingRow ({row,toggleDetails, toggleAddNew,posizione}) {
           aria-label={`Mostra dettagli per ${row.nome}`}
         >
           ➕
+        </button>
+        <button
+          onClick={() => toggleUpdate(row.nome)}
+          className="text-blue-600 hover:text-blue-800 transition transform hover:scale-110 "
+          aria-label={`Mostra dettagli per ${row.nome}`}
+        >
+          ✍️
         </button>
       </td>
     </tr>

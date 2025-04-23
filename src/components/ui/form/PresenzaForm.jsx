@@ -44,7 +44,7 @@ function PresenzaForm({ onSubmit, onCancel, formData, setFormData, textConfirm }
             onSubmit={handleSubmit}
             className=" max-w-xl mx-auto space-y-6"
         >
-            <h2 className="text-xl font-bold text-slate-800">Aggiungi Presenza</h2>
+            <h2 className="text-xl font-bold text-slate-800">Aggiungi Presenza a {formData.nomeRapper}</h2>
 
             {/* Data */}
             <div>
