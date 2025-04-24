@@ -66,7 +66,8 @@ function RankingTable({ rapper }) {
       data: new Date(data.data).toISOString(),
       evento: data.evento,
       posizionamento: data.posizionamento,
-      moltiplicatore: data.moltiplicatore
+      moltiplicatore: data.moltiplicatore,
+      descrizione: data.descrizione
     }
     await addPresenza(addPresenzaRequest);
     setMessage("Presenza aggiunta con successo!");

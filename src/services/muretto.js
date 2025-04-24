@@ -22,7 +22,8 @@ export const addPresenza = async (addPresenzaRequest) => {
             'data': addPresenzaRequest.data,
             'evento': addPresenzaRequest.evento,
             'moltiplicatore': addPresenzaRequest.moltiplicatore ? addPresenzaRequest.moltiplicatore : 'casa',
-            'posizionamento': addPresenzaRequest.posizionamento ? addPresenzaRequest.posizionamento : null
+            'posizionamento': addPresenzaRequest.posizionamento ? addPresenzaRequest.posizionamento : null,
+            'descrizione': addPresenzaRequest.descrizione ? addPresenzaRequest.descrizione : null
         }
     );
 };

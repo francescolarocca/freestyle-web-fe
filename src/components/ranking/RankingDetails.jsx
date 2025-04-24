@@ -17,6 +17,9 @@ function RankingDetails({ presenze,onDelete }) {
             <p><strong>Data:</strong> {new Intl.DateTimeFormat('it-IT').format(new Date(presenza.data))}</p>
             <p> <strong> Evento:</strong> {presenza.evento} </p>
             <p> <strong> Punti:</strong> {presenza.punteggio} </p>
+            {presenza.descrizione && (
+              <p> <strong> Descrizione:</strong> {presenza.descrizione} </p>
+            )}
             <hr></hr>
           </td>
         </tr>
