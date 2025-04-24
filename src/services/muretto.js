@@ -36,3 +36,16 @@ export const updateRapper = async (updateRapperRequest) => {
         `/updateRapper/${updateRapperRequest.tipo}/${updateRapperRequest.valore}/${updateRapperRequest.nomeRapper}?rank=${updateRapperRequest.newRank}`
     );
 };
+
+
+export const doAppello = async (doAppelloRequest) => {
+    await api.post(
+        '/appello',
+        {
+            'tipo': doAppelloRequest.tipo,
+            'valore': doAppelloRequest.valore,
+            'rapper': doAppelloRequest.rapper,
+            'data': new Date(doAppelloRequest.data).toISOString()
+        }
+    );
+};

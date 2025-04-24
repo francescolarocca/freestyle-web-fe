@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-
+import Button from './Button';
 const Youtube = ({ videoUrls }) => {
     const [currentVideo, setCurrentVideo] = useState(videoUrls[0]);
-    
+    const [playlist,setNewPlaylist] = useState('');
     const changeVideo = () => {
         const randomIndex = Math.floor(Math.random() * videoUrls.length);
         setCurrentVideo(videoUrls[randomIndex]);
@@ -14,7 +14,6 @@ const Youtube = ({ videoUrls }) => {
                 <iframe
                     src={`https://www.youtube.com/embed/videoseries?list=${currentVideo}`}
                     title="YouTube video player"
-                    frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     style={{
@@ -26,9 +25,25 @@ const Youtube = ({ videoUrls }) => {
                     }}
                 ></iframe>
             </div>
-            <button onClick={changeVideo} style={{ marginTop: '10px' }}>
-                Cambia Video
-            </button>
+            <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1 mt-4">
+                    Playlist
+                </label>
+                <input
+                    type="text"
+                    name="nome"
+                    value={playlist}
+                    onChange={() => setNewPlaylist(event.target.value)}
+                    className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+                    required
+                />
+            </div>
+            <div className="flex justify-center items-center">
+
+            <Button label="Cambia playlist" onClick={()=> {setCurrentVideo(playlist.split("list=")[1])}} 
+              className="mt-4 px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none" 
+></Button>
+</div>
         </div>
     );
 };

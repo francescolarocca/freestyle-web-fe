@@ -4,15 +4,13 @@ import React from 'react';
 
 const RapperSelector = ({ rappers = [], rapperSelected, onSelectionChange }) => {
 
-  const [selected, setSelected] = useState([... rapperSelected]);
  
   const toggleRapper = (nome) => {
-    const isSelected = selected.includes(nome);
+    const isSelected = rapperSelected.includes(nome);
     const updated = isSelected
-      ? selected.filter((r) => r !== nome)
-      : [...selected, nome];
+      ? rapperSelected.filter((r) => r !== nome)
+      : [...rapperSelected, nome];
 
-    setSelected(updated);
     console.log("Chiamo la funzione di callback con:", updated);
 
     onSelectionChange?.(updated); // notifica al genitore
@@ -25,7 +23,7 @@ const RapperSelector = ({ rappers = [], rapperSelected, onSelectionChange }) => 
           key={rapper.nome}
           onClick={() => toggleRapper(rapper.nome)}
           className={`cursor-pointer p-4 rounded-lg border text-center font-semibold transition
-            ${selected.includes(rapper.nome)
+            ${rapperSelected.includes(rapper.nome)
               ? 'bg-blue-600 text-white border-blue-600'
               : 'bg-white text-gray-800 border-gray-300 hover:bg-gray-100'}
           `}

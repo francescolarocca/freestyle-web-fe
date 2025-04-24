@@ -46,6 +46,7 @@ function MurettoLayout() {
       'OneVsOne': `${aliasMuretto} Modalita 1vs1`,
       'TwoVsTwo': `${aliasMuretto} Modalita 2vs2`,
       'new': `${aliasMuretto} Aggiungi Rapper`,
+      'appello': `${aliasMuretto} Appello`,
       [nomeRapper]: `${nomeRapper} `
     };
     const parts = location.pathname.split('/');

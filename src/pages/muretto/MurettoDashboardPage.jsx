@@ -11,7 +11,7 @@ function MurettoDashboardPage() {
         <Card key="ranking" onclickApply={() => navigate(`/muretto/${aliasMuretto}/ranking`)} title='Ranking' icon={"📈"} ></Card>
         <Card key="modalita" onclickApply={() => navigate(`/muretto/${aliasMuretto}/modalita`)} title='Modalità' icon={"🎮"} ></Card>
         <Card key="rapper" onclickApply={() => navigate(`/muretto/${aliasMuretto}/rapper`)} title='Rapper' icon={"🎙️"} ></Card>
-        <Card key="appello" onclickApply={() => navigate(`/muretto/${aliasMuretto}/ranking`)} title='Appello' icon={"🤚"} ></Card>
+        <Card key="appello" onclickApply={() => navigate(`/muretto/${aliasMuretto}/appello`)} title='Appello' icon={"🤚"} ></Card>
       </div>
     </div>
   );

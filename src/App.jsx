@@ -15,6 +15,8 @@ import RapperPage from './pages/muretto/rapper/RapperPage';
 import RapperLayout from './pages/muretto/rapper/RapperLayout';
 import NewRapper from './pages/muretto/rapper/NewRapper';
 import RappperDetail from './pages/muretto/rapper/RapperDetail';
+import AppelloLayout from './pages/muretto/appello/AppelloLayout';
+import AppelloPage from './pages/muretto/appello/AppelloPage';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +37,7 @@ const router = createBrowserRouter([
         element: <RapperLayout /> ,
         children : [
           {index: true, element: <RapperPage />},
+          {path: 'detail', element: <RapperPage/> },
           {path:'new',element: <NewRapper/>},
           {path:'detail/:nome',element: <RappperDetail/>} // schermata con i tab
         ]
@@ -44,6 +47,15 @@ const router = createBrowserRouter([
         element: <ModalitaLayout />, // diventa un layout con <Outlet />
         children: [
           { index: true, element: <ModalitaPage /> }, // schermata con i tab
+          { path: 'OneVsOne', element: <OneVsOne /> },
+          { path: 'TwoVsTwo', element: <TwoVsTwo /> },
+        ],
+      },
+      {
+        path: 'appello',
+        element: <AppelloLayout />, // diventa un layout con <Outlet />
+        children: [
+          { index: true, element: <AppelloPage/> }, // schermata con i tab
           { path: 'OneVsOne', element: <OneVsOne /> },
           { path: 'TwoVsTwo', element: <TwoVsTwo /> },
         ],

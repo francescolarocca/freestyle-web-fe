@@ -1,11 +1,11 @@
 import React from 'react';
 
 
-function Button ({ label, onClick, disabled }) {
+function Button ({ label, onClick, disabled,className }) {
   return (
     <button
-      className="bg-blue-500 text-white rounded px-4 py-2 text-lg hover:bg-blue-600 focus:outline-none"
-      onClick={onClick}
+    className={className || "bg-blue-500 text-white rounded px-4 py-2 text-lg hover:bg-blue-600 focus:outline-none"}
+    onClick={onClick}
       disabled={disabled}
     >
       {label}
